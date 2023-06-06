@@ -1,0 +1,107 @@
+#define IN1 6
+#define IN2 7
+#define IN3 8
+#define IN4 9
+#define sl 5
+#define sr 11
+#define green 12
+#define red 13
+int state =0;
+char Reading;
+void setup() {
+  Serial.begin (9600);
+  for(int i=5;i<=13;i++)
+  {
+    pinMode(i,OUTPUT);
+  }
+  } 
+
+void loop(){
+  if(Serial.available()>0){
+    Reading=Serial.read();
+    switch(Reading){
+      case 'F': forword();
+      break;
+      case 'B': backword();
+      break;
+      case 'R': right();
+      break;
+      case 'L': left();
+      break;
+      case 'I' : forwardRight();
+      break;
+      case 'G' : forwardLeft();
+      break;
+      case 'H' : forwardRight();
+      break;
+      case 'J' :  forwardLeft();
+      break;
+      case 'S' :stopp();
+      break;}
+    }
+}    
+void forword() {
+  Serial.println("forward");
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(sl,150);
+  analogWrite(sr,150);
+  }
+void backword(){
+  Serial.println("backword");
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(sl,150);
+  analogWrite(sr,150); 
+  }
+
+void right() {
+  Serial.println("right");
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(sl,200);
+  analogWrite(sr,0); 
+  }
+void left(){
+  Serial.println("left");
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(sl,0);
+  analogWrite(sr,200); 
+  }
+void forwardRight() {
+  Serial.println("right");
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(sl,150);
+  analogWrite(sr,150); 
+  }
+void forwardLeft(){
+  Serial.println("left");
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(sl,150);
+  analogWrite(sr,150); 
+  }
+
+void stopp(){
+  Serial.println("stopp");
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  analogWrite(sl,0);
+  analogWrite(sr,0);
+  }
